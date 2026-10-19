@@ -19,7 +19,11 @@ import type {
   SignUpData,
   Task,
 } from "../../types";
-import type { ConfigurationContextValue } from "../../root/ConfigurationContext";
+import {
+  pickBranding,
+  type Branding,
+  type ConfigurationContextValue,
+} from "../../root/ConfigurationContext";
 import { getActivityLog } from "../commons/activity";
 import { toDealSalesFilter } from "../commons/dealSalesFilter";
 import { getCompanyAvatar } from "../commons/getCompanyAvatar";
@@ -297,6 +301,12 @@ export const createDataProvider = ({
     },
     mergeContacts: async (sourceId: Identifier, targetId: Identifier) => {
       return mergeContacts(sourceId, targetId, baseDataProvider);
+    },
+    getBranding: async (): Promise<Partial<Branding>> => {
+      const { data } = await baseDataProvider.getOne("configuration", {
+        id: 1,
+      });
+      return pickBranding(data?.config);
     },
     getConfiguration: async (): Promise<ConfigurationContextValue> => {
       const { data } = await baseDataProvider.getOne("configuration", {

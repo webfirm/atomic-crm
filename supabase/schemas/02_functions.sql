@@ -91,6 +91,20 @@ CREATE OR REPLACE FUNCTION "public"."current_sales_id"() RETURNS bigint
   select id from public.sales where user_id = auth.uid();
 $$;
 
+-- Branding (title and logos) only, readable before login so the login page can show it
+CREATE OR REPLACE FUNCTION "public"."get_branding"() RETURNS "jsonb"
+    LANGUAGE "sql" STABLE SECURITY DEFINER
+    SET "search_path" TO ''
+    AS $$
+  select jsonb_strip_nulls(jsonb_build_object(
+    'title', config->'title',
+    'lightModeLogo', config->'lightModeLogo',
+    'darkModeLogo', config->'darkModeLogo'
+  ))
+  from public.configuration
+  where id = 1;
+$$;
+
 CREATE OR REPLACE FUNCTION "public"."get_domain_favicon"("domain_name" "text") RETURNS "text"
     LANGUAGE "plpgsql"
     SET "search_path" TO 'public'

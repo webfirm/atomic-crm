@@ -194,6 +194,10 @@
           "type": "registry:component"
         },
         {
+          "path": "src/components/atomic-crm/root/applyBranding.ts",
+          "type": "registry:component"
+        },
+        {
           "path": "src/components/atomic-crm/root/ConfigurationContext.tsx",
           "type": "registry:component"
         },

@@ -35,9 +35,11 @@ import { ProfilePage } from "../settings/ProfilePage";
 import { SettingsPage } from "../settings/SettingsPage";
 import {
   CONFIGURATION_STORE_KEY,
+  pickBranding,
   type ConfigurationContextValue,
 } from "./ConfigurationContext";
 import type { CrmDataProvider } from "../providers/types";
+import { applyBranding } from "./applyBranding";
 import {
   defaultCompanySectors,
   defaultCurrency,
@@ -165,6 +167,34 @@ export const CRM = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [store]);
 
+  // Load the branding (title, logos) even when signed out, so the login and
+  // sign-up pages show the one set in the settings
+  useEffect(() => {
+    dataProvider
+      .getBranding()
+      .then((branding) => {
+        if (Object.keys(branding).length === 0) return;
+        store.setItem(CONFIGURATION_STORE_KEY, {
+          ...store.getItem(CONFIGURATION_STORE_KEY),
+          ...branding,
+        });
+      })
+      .catch(() => {
+        // Non-critical: the default branding is shown instead
+      });
+  }, [dataProvider, store]);
+
+  // Show the branding title and logo in the browser tab, following settings changes
+  useEffect(() => {
+    applyBranding(
+      store.getItem<ConfigurationContextValue>(CONFIGURATION_STORE_KEY),
+    );
+    return store.subscribe(
+      CONFIGURATION_STORE_KEY,
+      (config?: Partial<ConfigurationContextValue>) => applyBranding(config),
+    );
+  }, [store]);
+
   const isMobile = useIsMobile();
 
   // on login, pre-fetch the configuration to avoid a flickering
@@ -203,7 +233,12 @@ export const CRM = ({
       },
       logout: async (params: any) => {
         try {
+          // Keep the branding for the login page, drop the rest of the configuration
+          const branding = pickBranding(store.getItem(CONFIGURATION_STORE_KEY));
           store.removeItem(CONFIGURATION_STORE_KEY);
+          if (Object.keys(branding).length > 0) {
+            store.setItem(CONFIGURATION_STORE_KEY, branding);
+          }
         } catch {
           // Ignore
         }
