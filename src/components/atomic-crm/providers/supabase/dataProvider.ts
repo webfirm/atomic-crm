@@ -15,7 +15,11 @@ import type {
   SalesFormData,
   SignUpData,
 } from "../../types";
-import type { ConfigurationContextValue } from "../../root/ConfigurationContext";
+import {
+  pickBranding,
+  type Branding,
+  type ConfigurationContextValue,
+} from "../../root/ConfigurationContext";
 import { ATTACHMENTS_BUCKET } from "../commons/attachments";
 import { toDealSalesFilter } from "../commons/dealSalesFilter";
 import { getIsInitialized } from "./authProvider";
@@ -248,6 +252,12 @@ const getDataProviderWithCustomMethods = () => {
       }
 
       return data;
+    },
+    // Readable before login, unlike the configuration table
+    async getBranding(): Promise<Partial<Branding>> {
+      const { data, error } = await getSupabaseClient().rpc("get_branding");
+      if (error) throw error;
+      return pickBranding(data);
     },
     async getConfiguration(): Promise<ConfigurationContextValue> {
       const { data } = await baseDataProvider.getOne("configuration", {

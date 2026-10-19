@@ -19,6 +19,22 @@ export interface ConfigurationContextValue {
   lightModeLogo: string;
 }
 
+/** The part of the configuration shown before login (login and sign-up pages). */
+export type Branding = Pick<
+  ConfigurationContextValue,
+  "title" | "darkModeLogo" | "lightModeLogo"
+>;
+
+export const pickBranding = (
+  config: Partial<ConfigurationContextValue> | null | undefined,
+): Partial<Branding> => {
+  const branding: Partial<Branding> = {};
+  if (config?.title) branding.title = config.title;
+  if (config?.darkModeLogo) branding.darkModeLogo = config.darkModeLogo;
+  if (config?.lightModeLogo) branding.lightModeLogo = config.lightModeLogo;
+  return branding;
+};
+
 export const useConfigurationContext = () => {
   const [config] = useStore<ConfigurationContextValue>(
     CONFIGURATION_STORE_KEY,

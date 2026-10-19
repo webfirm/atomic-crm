@@ -18,6 +18,10 @@ grant all on function public.get_avatar_for_email(text) to anon;
 grant all on function public.get_avatar_for_email(text) to authenticated;
 grant all on function public.get_avatar_for_email(text) to service_role;
 
+grant all on function public.get_branding() to anon;
+grant all on function public.get_branding() to authenticated;
+grant all on function public.get_branding() to service_role;
+
 grant all on function public.get_domain_favicon(text) to anon;
 grant all on function public.get_domain_favicon(text) to authenticated;
 grant all on function public.get_domain_favicon(text) to service_role;
