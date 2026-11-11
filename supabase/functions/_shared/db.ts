@@ -37,6 +37,7 @@ export interface ContactsTable {
   linkedin_url: string | null;
   postcode: string | null;
   region: string | null;
+  suburb: string | null;
 }
 
 interface TasksTable {

@@ -94,6 +94,7 @@ export type Contact = {
   linkedin_url?: string | null;
   postcode?: string | null;
   region?: string | null;
+  suburb?: string | null;
   first_seen: string;
   last_seen: string;
   has_newsletter: boolean;

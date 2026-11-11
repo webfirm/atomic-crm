@@ -124,6 +124,7 @@ export const mergeContacts = async (
       linkedin_url: winnerContact.linkedin_url || loserContact.linkedin_url,
       postcode: winnerContact.postcode || loserContact.postcode,
       region: winnerContact.region || loserContact.region,
+      suburb: winnerContact.suburb || loserContact.suburb,
       background: winnerContact.background ?? loserContact.background,
       has_newsletter:
         winnerContact.has_newsletter ?? loserContact.has_newsletter,

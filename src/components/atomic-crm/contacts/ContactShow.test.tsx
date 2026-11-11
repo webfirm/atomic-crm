@@ -78,10 +78,14 @@ describe("ContactShow", () => {
     await expect.element(screen.getByRole("combobox")).toHaveTextContent("Hot");
   });
 
-  it("shows the contact postcode and region in the aside", async () => {
+  it("shows the contact suburb, postcode and region in the aside", async () => {
     // Arrange
     mockIsMobile.mockReturnValue(false);
-    const contact = buildContact({ postcode: "2000", region: "NSW" });
+    const contact = buildContact({
+      suburb: "Sydney",
+      postcode: "2000",
+      region: "NSW",
+    });
 
     // Act
     const screen = await render(
@@ -95,7 +99,7 @@ describe("ContactShow", () => {
     );
 
     // Assert
-    await expect.element(screen.getByText("2000 NSW")).toBeVisible();
+    await expect.element(screen.getByText("Sydney 2000 NSW")).toBeVisible();
   });
 
   describe("delete and merge actions", () => {

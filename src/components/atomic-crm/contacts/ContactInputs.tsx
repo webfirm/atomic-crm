@@ -201,6 +201,7 @@ const ContactPersonalInformationInputs = () => {
         helperText={false}
         validate={isLinkedinUrl}
       />
+      <TextInput source="suburb" helperText={false} />
       <TextInput source="postcode" helperText={false} />
       <SelectInput
         source="region"

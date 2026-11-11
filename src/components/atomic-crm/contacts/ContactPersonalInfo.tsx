@@ -58,12 +58,14 @@ export const ContactPersonalInfo = () => {
           />
         </SingleFieldList>
       </ArrayField>
-      {(record.postcode || record.region) && (
+      {(record.suburb || record.postcode || record.region) && (
         <PersonalInfoRow
           icon={<MapPin className="w-4 h-4 text-muted-foreground" />}
           primary={
             <span>
-              {[record.postcode, record.region].filter(Boolean).join(" ")}
+              {[record.suburb, record.postcode, record.region]
+                .filter(Boolean)
+                .join(" ")}
             </span>
           }
         />
