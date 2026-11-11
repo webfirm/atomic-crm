@@ -241,6 +241,7 @@ describe("DealShow", () => {
       last_name: "Hopper",
       email_jsonb: [{ email: "grace@example.com", type: "Work" }],
       phone_jsonb: [{ number: "0400 000 000", type: "Work" }],
+      suburb: "Sydney",
       postcode: "2000",
       region: "NSW",
     });
@@ -262,6 +263,6 @@ describe("DealShow", () => {
     await expect
       .element(screen.getByRole("link", { name: "0400 000 000" }))
       .toHaveAttribute("href", "tel:0400 000 000");
-    await expect.element(screen.getByText("2000 NSW")).toBeVisible();
+    await expect.element(screen.getByText("Sydney 2000 NSW")).toBeVisible();
   });
 });

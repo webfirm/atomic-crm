@@ -167,9 +167,11 @@ export function exportToVCard(
     lines.push(`URL:${contact.linkedin_url}`);
   }
 
-  // Region and postcode (ADR fields: PO box;extended;street;locality;region;postal code;country)
-  if (contact.region || contact.postcode) {
-    lines.push(`ADR:;;;;${contact.region ?? ""};${contact.postcode ?? ""};`);
+  // Suburb, region and postcode (ADR fields: PO box;extended;street;locality;region;postal code;country)
+  if (contact.suburb || contact.region || contact.postcode) {
+    lines.push(
+      `ADR:;;;${contact.suburb ?? ""};${contact.region ?? ""};${contact.postcode ?? ""};`,
+    );
   }
 
   // Background/Note

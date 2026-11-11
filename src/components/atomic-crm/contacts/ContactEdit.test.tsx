@@ -146,7 +146,7 @@ describe("ContactEdit", () => {
       );
     });
 
-    it("saves the postcode and region entered in the form", async () => {
+    it("saves the suburb, postcode and region entered in the form", async () => {
       // Arrange
       const updateMock = vi.fn().mockResolvedValue({ data: {} });
       const screen = await render(
@@ -156,6 +156,7 @@ describe("ContactEdit", () => {
       // Act
       const postcodeInput = screen.getByLabelText("Postcode");
       await expect.element(postcodeInput).toBeInTheDocument();
+      await screen.getByLabelText("Suburb").fill("Sydney");
       await postcodeInput.fill("2000");
       await screen.getByRole("combobox", { name: "Region" }).click();
       await screen.getByRole("option", { name: "NSW" }).click();
@@ -171,7 +172,11 @@ describe("ContactEdit", () => {
       expect(updateMock).toBeCalledWith(
         expect.anything(),
         expect.objectContaining({
-          data: expect.objectContaining({ postcode: "2000", region: "NSW" }),
+          data: expect.objectContaining({
+            suburb: "Sydney",
+            postcode: "2000",
+            region: "NSW",
+          }),
         }),
       );
     });

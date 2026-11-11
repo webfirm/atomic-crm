@@ -26,6 +26,7 @@ export type ContactImportSchema = {
   status: string;
   tags: string;
   linkedin_url: string;
+  suburb: string;
   postcode: string;
   region: string;
 };
@@ -88,6 +89,7 @@ export function useContactImport() {
             company: companyName,
             tags: tagNames,
             linkedin_url,
+            suburb,
             postcode,
             region,
           }) => {
@@ -129,6 +131,7 @@ export function useContactImport() {
                 tags: tagList.map((tag) => tag.id),
                 sales_id: user?.identity?.id,
                 linkedin_url,
+                suburb: suburb?.trim() || undefined,
                 postcode,
                 region: region?.trim().toUpperCase() || undefined,
               },

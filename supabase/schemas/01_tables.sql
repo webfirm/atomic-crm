@@ -51,7 +51,8 @@ create table public.contacts (
     email_jsonb jsonb,
     phone_jsonb jsonb,
     postcode text,
-    region text
+    region text,
+    suburb text
 );
 
 create table public.contact_notes (

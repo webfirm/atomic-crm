@@ -50,7 +50,9 @@ export const ContactList = () => {
 };
 
 const ContactDetails = ({ contact }: { contact: Contact }) => {
-  const location = [contact.postcode, contact.region].filter(Boolean).join(" ");
+  const location = [contact.suburb, contact.postcode, contact.region]
+    .filter(Boolean)
+    .join(" ");
   return (
     <div className="flex flex-col gap-0.5 mt-1">
       {contact.email_jsonb?.map(({ email }) => (

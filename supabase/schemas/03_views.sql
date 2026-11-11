@@ -120,6 +120,7 @@ select
     co.phone_jsonb,
     co.postcode,
     co.region,
+    co.suburb,
     (jsonb_path_query_array(co.email_jsonb, '$[*]."email"'))::text as email_fts,
     (jsonb_path_query_array(co.phone_jsonb, '$[*]."number"'))::text as phone_fts,
     c.name as company_name,

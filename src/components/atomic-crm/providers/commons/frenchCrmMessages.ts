@@ -85,6 +85,7 @@ export const frenchCrmMessages = {
         phone_jsonb: "Numéros de téléphone",
         phone_number: "Numéro de téléphone",
         linkedin_url: "URL LinkedIn",
+        suburb: "Localité",
         postcode: "Code postal",
         region: "Région",
         background: "Informations de contexte",
